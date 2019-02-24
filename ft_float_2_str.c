@@ -6,7 +6,7 @@
 /*   By: vlaroque <vlaroque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 15:46:16 by vlaroque          #+#    #+#             */
-/*   Updated: 2019/02/24 19:38:22 by vlaroque         ###   ########.fr       */
+/*   Updated: 2019/02/24 20:38:45 by vlaroque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,28 @@ char	*strnbr_two_exp(int exp)
 
 	if (!(str = malloc(sizeof(char) * LDBL_LEN)))
 		return (NULL);
+	str[UNIT] = 1;
+	if (exp > 0)
+	{
+		while (exp > 0)
+		{
+			str = strnbr_multiplybytwo(str);
+			exp--;
+		}
+	}
+	else if (exp < 0)
+	{
+		while (exp < 0)
+		{
+			str = strnbr_dividebytwo(str);
+			exp++;
+		}
+	}
+	return (str);
+}
+
+char	*strnbr_exp(char *str, int exp)
+{
 	str[UNIT] = 1;
 	if (exp > 0)
 	{
@@ -182,6 +204,35 @@ char		*ft_ldbl_2_str(long double nbr)
 	int		sign;
 	char	*added;
 	char	*nbr_str;
+	int		i;
+
+	i = 0;
+	if (!(nbr_str = malloc(sizeof(char) * LDBL_LEN)))
+		return (NULL);
+	sign = sign_ldbl(&nbr);
+	expt = get_exp(nbr);
+	nbr /= two_exp(expt);
+	while(nbr > 0.0)
+	{
+		if (nbr >= 1.0)
+		{
+			added = strnbr_two_exp(i);
+			nbr_str = strnbr_add(nbr_str, added);
+			nbr = nbr - 1.0;
+		}
+		nbr *= 2.0;
+		i--;
+		free(added);
+	}
+	nbr_str = strnbr_exp(nbr_str, expt);
+	nbr_str = strnbr_bechars(nbr_str);
+	printf(">>>nbrstr = |%s|\n", nbr_str);
+	return (0);
+}
+
+/*
+nbr : 	[0		-	19999] int part,
+		[20000	-	39999] decimal part
 
 	if (!(nbr_str = malloc(sizeof(char) * LDBL_LEN)))
 		return (NULL);
@@ -199,13 +250,4 @@ char		*ft_ldbl_2_str(long double nbr)
 		nbr *= 2.0;
 		expt--;
 	}
-	nbr_str = strnbr_bechars(nbr_str);
-	//nbr_str[20000] = '.';
-	printf(">>>nbrstr = |%s|\n", nbr_str);
-	return (0);
-}
-
-/*
-nbr : 	[0		-	19999] int part,
-		[20000	-	39999] decimal part
 */
