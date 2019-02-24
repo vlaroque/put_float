@@ -6,19 +6,20 @@
 /*   By: vlaroque <vlaroque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 15:46:16 by vlaroque          #+#    #+#             */
-/*   Updated: 2019/02/24 19:06:44 by vlaroque         ###   ########.fr       */
+/*   Updated: 2019/02/24 19:38:22 by vlaroque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "ft_float_2_str.h"
 
 char	*strnbr_bezero(char *str)
 {
 	int i;
 
 	i = 0;
-	while(i < 40000)
+	while(i < LDBL_LEN)
 	{
 		str[i] = 0;
 		i++;
@@ -31,7 +32,7 @@ char	*strnbr_bechars(char *str)
 	int i;
 
 	i = 0;
-	while(i < 40000)
+	while(i < LDBL_LEN)
 	{
 		str[i] = str[i] + '0';
 		i++;
@@ -45,7 +46,7 @@ char	*strnbr_multiplyby(char *str, int nbr)
 	int carry;
 	int tmp;
 
-	i = 39999;
+	i = LDBL_LEN - 1;
 	carry = 0;
 	while (i >= 0)
 	{
@@ -66,7 +67,7 @@ char	*strnbr_dividebytwo(char *str)
 {
 	int i;
 
-	i = 39999;
+	i = LDBL_LEN - 1;
 	str = strnbr_multiplyby(str, 5);
 	while (i > 0)
 	{
@@ -80,9 +81,9 @@ char	*strnbr_two_exp(int exp)
 {
 	char	*str;
 
-	if (!(str = malloc(sizeof(char) * 40000)))
+	if (!(str = malloc(sizeof(char) * LDBL_LEN)))
 		return (NULL);
-	str[19999] = 1;
+	str[UNIT] = 1;
 	if (exp > 0)
 	{
 		while (exp > 0)
@@ -108,7 +109,7 @@ char	*strnbr_add(char *strnbr, char *added)
 	int carry;
 	int save;
 
-	i = 39999;
+	i = LDBL_LEN - 1;
 	carry = 0;
 	while(i >= 0)
 	{
@@ -182,7 +183,7 @@ char		*ft_ldbl_2_str(long double nbr)
 	char	*added;
 	char	*nbr_str;
 
-	if (!(nbr_str = malloc(sizeof(char) * 40000)))
+	if (!(nbr_str = malloc(sizeof(char) * LDBL_LEN)))
 		return (NULL);
 	sign = sign_ldbl(&nbr);
 	expt = get_exp(nbr);
@@ -199,7 +200,7 @@ char		*ft_ldbl_2_str(long double nbr)
 		expt--;
 	}
 	nbr_str = strnbr_bechars(nbr_str);
-	nbr_str[20000] = '.';
+	//nbr_str[20000] = '.';
 	printf(">>>nbrstr = |%s|\n", nbr_str);
 	return (0);
 }
