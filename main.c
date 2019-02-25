@@ -6,12 +6,13 @@
 /*   By: vlaroque <vlaroque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 15:46:23 by vlaroque          #+#    #+#             */
-/*   Updated: 2019/02/24 20:41:04 by vlaroque         ###   ########.fr       */
+/*   Updated: 2019/02/25 18:47:34 by vlaroque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <float.h>
+#include <limits.h>
 
 char	*ft_ldbl_2_str(long double	nbr);
 
@@ -20,15 +21,15 @@ int		main(void)
 	long double		nbr;
 	char			*res_str;
 
-	nbr = LDBL_TRUE_MIN;
+	nbr = LDBL_MAX;
 	//nbr = -1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890.123456789;
 	//nbr = 123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890.0;
 	//res_str = ft_ldbl_2_str(nbr);
 	//printf("LDBL_MIN>>>%.20000Lf\n", LDBL_MIN);
 	//printf("LDBL_TRUE_MIN>>>%.20000Lf\n", LDBL_TRUE_MIN);
 
-	printf("\n >>%.20Lf\n", (long double)(nbr));
-	res_str = ft_ldbl_2_str(nbr);
+	/*printf("\n >>%.20Lf\n", (long double)(nbr));*/
+	ft_ldbl_2_str(nbr);
 	return (0);
 }
 

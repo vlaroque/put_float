@@ -6,7 +6,7 @@
 /*   By: vlaroque <vlaroque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 15:46:16 by vlaroque          #+#    #+#             */
-/*   Updated: 2019/02/24 20:38:45 by vlaroque         ###   ########.fr       */
+/*   Updated: 2019/02/25 17:22:51 by vlaroque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ char	*strnbr_two_exp(int exp)
 
 char	*strnbr_exp(char *str, int exp)
 {
-	str[UNIT] = 1;
 	if (exp > 0)
 	{
 		while (exp > 0)
@@ -204,9 +203,7 @@ char		*ft_ldbl_2_str(long double nbr)
 	int		sign;
 	char	*added;
 	char	*nbr_str;
-	int		i;
 
-	i = 0;
 	if (!(nbr_str = malloc(sizeof(char) * LDBL_LEN)))
 		return (NULL);
 	sign = sign_ldbl(&nbr);
@@ -214,14 +211,14 @@ char		*ft_ldbl_2_str(long double nbr)
 	nbr /= two_exp(expt);
 	while(nbr > 0.0)
 	{
+		added = strnbr_two_exp(1);
 		if (nbr >= 1.0)
 		{
-			added = strnbr_two_exp(i);
+			added = strnbr_dividebytwo(added);
 			nbr_str = strnbr_add(nbr_str, added);
 			nbr = nbr - 1.0;
 		}
 		nbr *= 2.0;
-		i--;
 		free(added);
 	}
 	nbr_str = strnbr_exp(nbr_str, expt);
