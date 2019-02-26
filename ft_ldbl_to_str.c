@@ -6,13 +6,26 @@
 /*   By: vlaroque <vlaroque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 15:31:20 by vlaroque          #+#    #+#             */
-/*   Updated: 2019/02/25 21:32:13 by vlaroque         ###   ########.fr       */
+/*   Updated: 2019/02/26 19:59:23 by vlaroque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include "ft_float_2_str.h"
+#include "ft_meganbr_maths.h"
+
+int		ullong_to_printf(ullong *meganbr)
+{
+	int i;
+
+	i = 0;
+	while (i < MEGALEN)
+	{
+		if (meganbr[i])
+			printf("%018lld.", meganbr[i]);
+		i++;
+	}
+	return (0);
+}
 
 int		ullong_to_str(char *str, ullong nbr)
 {
@@ -44,110 +57,8 @@ ullong	*meganbr_be_str(ullong *meganbr)
 		i++;
 	}
 	strnbr[STRNBRLEN] = '\0';
-	printf(">>%s\n", strnbr);
+	//printf(">>%s\n", strnbr);
 	return (0);
-}
-
-ullong	*meganbr_multiplybytwo(ullong *meganbr)
-{
-	int		i;
-	ullong	carry;
-	ullong	tmp;
-
-	i = MEGALEN - 1;
-	carry = 0;
-	while (i >= 0)
-	{
-		tmp = meganbr[i];
-		meganbr[i] = ((tmp * 2) + carry) % 1000000000000000000;
-		carry = ((tmp * 2) + carry) / 1000000000000000000;
-		i--;
-	}
-	return (meganbr);
-}
-
-ullong	*meganbr_dividebytwo(ullong *meganbr)
-{
-	int		i;
-	ullong 	tmp;
-	ullong	carry;
-
-	i = 0;
-	carry = 0;
-	while (i <= MEGALEN)
-	{
-		tmp = meganbr[i] + (carry * 1000000000000000000);
-		meganbr[i] = tmp / 2;
-		carry = tmp % 2;
-		i++;
-	}
-	return (meganbr);
-}
-
-ullong	*meganbr_two_exp(int exp)
-{
-	ullong	*meganbr;
-
-	if(!(meganbr = malloc(sizeof(ullong) * MEGALEN)))
-		return (NULL);
-	meganbr[MEGAUNIT] = 1;
-	if (exp > 0)
-	{
-		while (exp > 0)
-		{
-			meganbr = meganbr_multiplybytwo(meganbr);
-			exp--;
-		}
-	}
-	else if (exp < 0)
-	{
-		while (exp < 0)
-		{
-			meganbr = meganbr_dividebytwo(meganbr);
-			exp++;
-		}
-	}
-	return (meganbr);
-}
-
-ullong	*meganbr_exp(ullong *meganbr, int exp)
-{
-	if (exp > 0)
-	{
-		while (exp > 0)
-		{
-			meganbr = meganbr_multiplybytwo(meganbr);
-			exp--;
-		}
-	}
-	else if (exp < 0)
-	{
-		while (exp < 0)
-		{
-			meganbr = meganbr_dividebytwo(meganbr);
-			exp++;
-		}
-	}
-	return (meganbr);
-}
-
-ullong	*meganbr_add(ullong *meganbr, ullong *added)
-{
-	int		i;
-	ullong	carry;
-	ullong	save;
-
-
-	i = MEGALEN - 1;
-	carry = 0;
-	while (i >= 0)
-	{
-		save = meganbr[i] + added[i] + carry;
-		meganbr[i] = save % 1000000000000000000;
-		carry = save / 1000000000000000000;
-		i--;
-	}
-	return (meganbr);
 }
 
 static long double	two_exp(int exp)
@@ -173,6 +84,8 @@ static int			get_exp(long double nbr)
 	int		pwr;
 
 	pwr = 0;
+	if (nbr == 0.0)
+		return (0);
 	if (nbr >= 1)
 	{
 		while (nbr >= 1)
@@ -220,9 +133,9 @@ char		*ft_ldbl_2_str(long double nbr)
 	added = meganbr_two_exp(1);
 	while(nbr > 0.0)
 	{
+		added = meganbr_dividebytwo(added);
 		if (nbr >= 1.0)
 		{
-			added = meganbr_dividebytwo(added);
 			meganbr = meganbr_add(meganbr, added);
 			nbr = nbr - 1.0;
 		}
@@ -231,5 +144,6 @@ char		*ft_ldbl_2_str(long double nbr)
 	free(added);
 	meganbr = meganbr_exp(meganbr, expt);
 	meganbr_be_str(meganbr);
+	ullong_to_printf(meganbr);
 	return (0);
 }

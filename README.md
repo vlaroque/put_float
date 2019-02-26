@@ -17,3 +17,7 @@ performances:
 	* LDBL_MAX =		  4.19 s
 	* LDBL_MIN =		  4.43 s
 	* LDBL_TRUE_MIN =	  4.47 s :(
+* changing the char string "strnbr" of 21500 chars to a unsigned long long array:
+	* LDBL_MAX =		  0.31 s
+	* LDBL_MIN =		  0.09 s
+	* LDBL_TRUE_MIN =	  0.31 s
