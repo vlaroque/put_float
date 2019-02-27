@@ -6,11 +6,11 @@
 /*   By: vlaroque <vlaroque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/26 19:19:15 by vlaroque          #+#    #+#             */
-/*   Updated: 2019/02/26 19:59:56 by vlaroque         ###   ########.fr       */
+/*   Updated: 2019/02/27 11:22:08 by vlaroque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_float_2_str.h"
+#include "ft_meganbr.h"
 
 ullong	*meganbr_multiplybytwo(ullong *meganbr)
 {
@@ -33,7 +33,7 @@ ullong	*meganbr_multiplybytwo(ullong *meganbr)
 ullong	*meganbr_dividebytwo(ullong *meganbr)
 {
 	int		i;
-	ullong 	tmp;
+	ullong	tmp;
 	ullong	carry;
 
 	i = 0;
@@ -52,7 +52,7 @@ ullong	*meganbr_two_exp(int exp)
 {
 	ullong	*meganbr;
 
-	if(!(meganbr = malloc(sizeof(ullong) * MEGALEN)))
+	if (!(meganbr = malloc(sizeof(ullong) * MEGALEN)))
 		return (NULL);
 	meganbr[MEGAUNIT] = 1;
 	if (exp > 0)
@@ -100,7 +100,6 @@ ullong	*meganbr_add(ullong *meganbr, ullong *added)
 	int		i;
 	ullong	carry;
 	ullong	save;
-
 
 	i = MEGALEN - 1;
 	carry = 0;

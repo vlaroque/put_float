@@ -21,3 +21,20 @@ performances:
 	* LDBL_MAX =		  0.31 s
 	* LDBL_MIN =		  0.09 s
 	* LDBL_TRUE_MIN =	  0.31 s
+
+
+```c
+int		ullong_to_printf(ullong *meganbr)
+{
+	int i;
+
+	i = 0;
+	while (i < MEGALEN)
+	{
+		if (meganbr[i])
+			printf("%018lld.", meganbr[i]);
+		i++;
+	}
+	return (0);
+}
+`

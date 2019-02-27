@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_meganbr_maths.h                                 :+:      :+:    :+:   */
+/*   ft_meganbr.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlaroque <vlaroque@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/26 19:20:51 by vlaroque          #+#    #+#             */
-/*   Updated: 2019/02/27 12:14:35 by vlaroque         ###   ########.fr       */
+/*   Created: 2019/02/27 11:16:04 by vlaroque          #+#    #+#             */
+/*   Updated: 2019/02/27 12:22:39 by vlaroque         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MEGANBR_MATHS_H
-# define FT_MEGANBR_MATHS_H
+#ifndef FT_MEGANBR_H
+# define FT_MEGANBR_H
 
-# include "ft_meganbr.h"
+# include <stdlib.h>
+# define LDBL_LEN 21500
+# define MEGALEN 1189
+# define MEGAUNIT 274
+# define STRNBRLEN 21380
 
-ullong	*meganbr_multiplybytwo(ullong *meganbr);
-ullong	*meganbr_dividebytwo(ullong *meganbr);
-ullong	*meganbr_two_exp(int exp);
-ullong	*meganbr_exp(ullong *meganbr, int exp);
-ullong	*meganbr_add(ullong *meganbr, ullong *added);
+typedef	unsigned long long	t_ullong;
+char	*ft_ldbl_2_str(long double nbr);
 
 #endif
